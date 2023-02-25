@@ -34,7 +34,7 @@ class InMemoryUserRepository implements UserRepository
      */
     public function findAll(): array
     {
-        return array_values($this->users);
+        return array_values(\App\Models\User::all()->toArray());
     }
 
     /**
