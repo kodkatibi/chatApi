@@ -43,6 +43,10 @@ class InMemoryUserRepository implements UserRepository
         return $user->toArray();
     }
 
+    /**
+     * @param array $request
+     * @return array
+     */
     public function createUser(array $request): array
     {
         $user = $this->userModel->create($request);

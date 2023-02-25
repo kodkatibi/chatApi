@@ -18,5 +18,9 @@ interface UserRepository
      */
     public function findUserOfId(int $id): array;
 
+    /**
+     * @param array $request
+     * @return array
+     */
     public function createUser(array $request): array;
 }
