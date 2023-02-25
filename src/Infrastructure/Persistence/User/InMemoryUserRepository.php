@@ -4,29 +4,23 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\User;
 
-use App\Domain\User\User;
 use App\Domain\User\UserNotFoundException;
 use App\Domain\User\UserRepository;
+use App\Models\User as UserModel;
 
 class InMemoryUserRepository implements UserRepository
 {
     /**
-     * @var User[]
+     * @var UserModel
      */
-    private array $users;
+    private UserModel $userModel;
 
     /**
-     * @param User[]|null $users
+     * @param UserModel|null $userModel
      */
-    public function __construct(array $users = null)
+    public function __construct()
     {
-        $this->users = $users ?? [
-            1 => new User(1, 'bill.gates', 'Bill', 'Gates'),
-            2 => new User(2, 'steve.jobs', 'Steve', 'Jobs'),
-            3 => new User(3, 'mark.zuckerberg', 'Mark', 'Zuckerberg'),
-            4 => new User(4, 'evan.spiegel', 'Evan', 'Spiegel'),
-            5 => new User(5, 'jack.dorsey', 'Jack', 'Dorsey'),
-        ];
+        $this->userModel = new UserModel();
     }
 
     /**
@@ -34,18 +28,24 @@ class InMemoryUserRepository implements UserRepository
      */
     public function findAll(): array
     {
-        return array_values(\App\Models\User::all()->toArray());
+        return array_values($this->userModel->all()->toArray());
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findUserOfId(int $id): User
+    public function findUserOfId(int $id): array
     {
-        if (!isset($this->users[$id])) {
+        $user = $this->userModel->find($id);
+        if (!isset($user)) {
             throw new UserNotFoundException();
         }
+        return $user->toArray();
+    }
 
-        return $this->users[$id];
+    public function createUser(array $request): array
+    {
+        $user = $this->userModel->create($request);
+        return $user->toArray();
     }
 }

@@ -10,16 +10,16 @@ class User implements JsonSerializable
 {
     private ?int $id;
 
-    private string $username;
+    private string $userEmail;
 
     private string $firstName;
 
     private string $lastName;
 
-    public function __construct(?int $id, string $username, string $firstName, string $lastName)
+    public function __construct(?int $id, string $userEmail, string $firstName, string $lastName)
     {
         $this->id = $id;
-        $this->username = strtolower($username);
+        $this->userEmail = strtolower($userEmail);
         $this->firstName = ucfirst($firstName);
         $this->lastName = ucfirst($lastName);
     }
@@ -29,9 +29,9 @@ class User implements JsonSerializable
         return $this->id;
     }
 
-    public function getUsername(): string
+    public function getUserEmail(): string
     {
-        return $this->username;
+        return $this->userEmail;
     }
 
     public function getFirstName(): string
@@ -49,7 +49,7 @@ class User implements JsonSerializable
     {
         return [
             'id' => $this->id,
-            'username' => $this->username,
+            'userEmail' => $this->userEmail,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
         ];

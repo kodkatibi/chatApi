@@ -23,16 +23,16 @@ class UserTest extends TestCase
     /**
      * @dataProvider userProvider
      * @param int    $id
-     * @param string $username
+     * @param string $email
      * @param string $firstName
      * @param string $lastName
      */
-    public function testGetters(int $id, string $username, string $firstName, string $lastName)
+    public function testGetters(int $id, string $email, string $firstName, string $lastName)
     {
-        $user = new User($id, $username, $firstName, $lastName);
+        $user = new User($id, $email, $firstName, $lastName);
 
         $this->assertEquals($id, $user->getId());
-        $this->assertEquals($username, $user->getUsername());
+        $this->assertEquals($email, $user->getUserEmail());
         $this->assertEquals($firstName, $user->getFirstName());
         $this->assertEquals($lastName, $user->getLastName());
     }
