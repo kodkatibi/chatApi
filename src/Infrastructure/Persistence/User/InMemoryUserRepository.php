@@ -6,21 +6,21 @@ namespace App\Infrastructure\Persistence\User;
 
 use App\Domain\User\UserNotFoundException;
 use App\Domain\User\UserRepository;
-use App\Models\User as UserModel;
+use App\Domain\User\User;
 
 class InMemoryUserRepository implements UserRepository
 {
     /**
-     * @var UserModel
+     * @var User
      */
-    private UserModel $userModel;
+    private User $User;
 
     /**
-     * @param UserModel|null $userModel
+     * @param User|null $User
      */
     public function __construct()
     {
-        $this->userModel = new UserModel();
+        $this->User = new User();
     }
 
     /**
@@ -28,7 +28,7 @@ class InMemoryUserRepository implements UserRepository
      */
     public function findAll(): array
     {
-        return array_values($this->userModel->all()->toArray());
+        return array_values($this->User->all()->toArray());
     }
 
     /**
@@ -36,7 +36,7 @@ class InMemoryUserRepository implements UserRepository
      */
     public function findUserOfId(int $id): array
     {
-        $user = $this->userModel->find($id);
+        $user = $this->User->find($id);
         if (!isset($user)) {
             throw new UserNotFoundException();
         }
@@ -49,7 +49,7 @@ class InMemoryUserRepository implements UserRepository
      */
     public function createUser(array $request): array
     {
-        $user = $this->userModel->create($request);
+        $user = $this->User->create($request);
         return $user->toArray();
     }
 }

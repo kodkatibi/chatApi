@@ -7,13 +7,13 @@ namespace App\Domain\User;
 interface UserRepository
 {
     /**
-     * @return User[]
+     * @return array
      */
     public function findAll(): array;
 
     /**
      * @param int $id
-     * @return User
+     * @return array
      * @throws UserNotFoundException
      */
     public function findUserOfId(int $id): array;
