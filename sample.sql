@@ -6,7 +6,7 @@ CREATE TABLE users
     email      TEXT NOT NULL UNIQUE
 );
 
-CREATE TABLE conversations
+CREATE TABLE rooms
 (
     id         INTEGER PRIMARY KEY,
     name       TEXT    NOT NULL,
@@ -18,8 +18,8 @@ CREATE TABLE chats
 (
     id              INTEGER PRIMARY KEY,
     from_user_id    INTEGER NOT NULL,
-    conversation_id INTEGER NOT NULL,
+    room_id INTEGER NOT NULL,
     message         TEXT    NOT NULL,
     foreign key (from_user_id) references users (id) ON DELETE CASCADE,
-    foreign key (conversation_id) references conversations (id) ON DELETE CASCADE
+    foreign key (room_id) references rooms (id) ON DELETE CASCADE
 );

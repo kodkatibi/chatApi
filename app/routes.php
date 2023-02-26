@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\Room\CreateRoomAction;
+use App\Application\Actions\Room\ListRoomAction;
+use App\Application\Actions\Room\ViewRoomAction;
 use App\Application\Actions\User\CreateUserAction;
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
@@ -25,5 +28,14 @@ return function (App $app) {
         $group->get('', ListUsersAction::class);
         $group->get('/{id}', ViewUserAction::class);
         $group->post('/create', CreateUserAction::class);
+    });
+    $app->group('/rooms/{userId}', function (Group $group) {
+        $group->get('', ListRoomAction::class);
+        $group->get('/{id}', ViewRoomAction::class);
+        $group->post('/create', CreateRoomAction::class);
+    });
+    $app->group('/chats/{roomId}', function (Group $group) {
+        $group->get('', ListRoomAction::class);
+        $group->post('/send-message', CreateRoomAction::class);
     });
 };
